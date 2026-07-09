@@ -85,13 +85,13 @@ const defaultCV: CVData = {
   ]
 };
 
-const TEMPLATES: { id: Template; label: string }[] = [
-  { id: 'professional', label: 'Professional' },
-  { id: 'minimal', label: 'Minimal' },
-  { id: 'modern', label: 'Modern' },
-  { id: 'classic', label: 'Classic' },
-  { id: 'sidebar', label: 'Sidebar' },
-  { id: 'compact', label: 'Compact' },
+const TEMPLATES: { id: Template; label: string; desc?: string }[] = [
+  { id: 'professional', label: 'Professional', desc: 'Clean & timeless' },
+  { id: 'minimal', label: 'Minimal', desc: 'Simple & spacious' },
+  { id: 'modern', label: 'Modern', desc: 'Bold & contemporary' },
+  { id: 'classic', label: 'Classic', desc: 'Traditional & elegant' },
+  { id: 'sidebar', label: 'Executive', desc: 'Two-column layout' },
+  { id: 'compact', label: 'Compact', desc: 'Dense & efficient' },
 ];
 
 const ACCENT_COLORS = ['#2563eb', '#0ea47a', '#7c3aed', '#c2410f', '#334155'];
@@ -989,13 +989,14 @@ export default function CVMaker() {
       {/* Template + Accent Toolbar */}
       <div className="toolbar px-5 md:px-7 py-2.5 flex items-center gap-x-6 gap-y-2 flex-wrap border-b">
         <div>
-          <div className="text-[10px] font-semibold tracking-widest text-[var(--text-muted)] mb-1">TEMPLATE</div>
+          <div className="text-[10px] font-semibold tracking-widest text-[var(--text-muted)] mb-1">DESIGN</div>
           <div className="flex gap-1 flex-wrap">
             {TEMPLATES.map((t) => (
               <button
                 key={t.id}
                 onClick={() => changeTemplate(t.id)}
                 className={`template-btn text-sm ${template === t.id ? 'active' : ''}`}
+                title={t.desc}
               >
                 {t.label}
               </button>
