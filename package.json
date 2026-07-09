@@ -3,6 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "Beautiful client-side CV / Resume builder with live preview, 6 templates, photo upload, PDF and DOCX export.",
+  "author": "Samir Xhaferi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samcex/cv-maker.git"
+  },
+  "homepage": "https://cv-maker-eta-lake.vercel.app",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
