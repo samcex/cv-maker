@@ -156,9 +156,9 @@ body {
 }
 
 .editor-pane {
-  width: 42%;
-  min-width: 380px;
-  max-width: 520px;
+  width: 38%;
+  min-width: 360px;
+  max-width: 480px;
   background: var(--surface);
   border-right: 1px solid var(--border);
   display: flex;
