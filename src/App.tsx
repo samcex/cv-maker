@@ -156,7 +156,9 @@ export default function CVMaker() {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem('cv-maker-dark-mode') === 'true';
   });
-  const [language, setLanguage] = useState<'en' | 'de'>('en');
+  const [language, setLanguage] = useState<'en' | 'de'>(() => {
+    return (localStorage.getItem('cv-maker-language') as 'en' | 'de') || 'en';
+  });
 
   // Dark mode class toggle
   useEffect(() => {
@@ -185,9 +187,10 @@ export default function CVMaker() {
 
   // Autosave to localStorage
   useEffect(() => {
-    const data = { cv, template, accentColor };
+    const data = { cv, template, accentColor, language };
     localStorage.setItem('cv-maker-data', JSON.stringify(data));
-  }, [cv, template, accentColor]);
+    localStorage.setItem('cv-maker-language', language);
+  }, [cv, template, accentColor, language]);
 
   // Completion Progress calculator
   const getCompletionProgress = () => {
@@ -1095,7 +1098,7 @@ export default function CVMaker() {
           {/* Theme toggle */}
           <button 
             onClick={() => setDarkMode(!darkMode)}
-            className="btn btn-secondary p-2 rounded-lg"
+            className="inline-flex items-center p-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-[0.98]"
             title="Toggle theme"
           >
             {darkMode ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
@@ -1119,34 +1122,40 @@ export default function CVMaker() {
 
           <button 
             onClick={loadExample} 
-            className="btn btn-secondary hidden md:flex items-center"
+            className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-[0.985] hidden md:flex"
           >
-            <Star className="w-3.5 h-3.5 text-indigo-500" /> Load Example
+            <Star className="w-4 h-4 text-indigo-500" /> Load Example
           </button>
 
-          <label className="btn btn-secondary cursor-pointer">
-            <Upload className="w-3.5 h-3.5 text-slate-500" /> Import
+          <label className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 cursor-pointer transition-all active:scale-[0.985]">
+            <Upload className="w-4 h-4" /> Import
             <input type="file" accept=".json" className="hidden" onChange={importJSON} />
           </label>
 
-          <button onClick={exportJSON} className="btn btn-secondary hidden sm:flex">
-            <Download className="w-3.5 h-3.5 text-slate-500" /> Export JSON
+          <button onClick={exportJSON} className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-[0.985] hidden sm:flex">
+            <Download className="w-4 h-4" /> Export JSON
           </button>
 
           <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200 dark:border-slate-800">
-            <button onClick={exportPDF} className="btn btn-primary">
-              <Download className="w-3.5 h-3.5" /> Download PDF
+            <button 
+              onClick={exportPDF} 
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white shadow-sm hover:shadow-md transition-all active:scale-[0.985]"
+            >
+              <Download className="w-4 h-4" /> PDF
             </button>
-            <button onClick={exportDOCX} className="btn btn-secondary hidden sm:flex">
-              <Download className="w-3.5 h-3.5" /> Word (DOCX)
+            <button 
+              onClick={exportDOCX} 
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 shadow-sm hover:shadow transition-all active:scale-[0.985] hidden sm:flex"
+            >
+              <Download className="w-4 h-4" /> DOCX
             </button>
           </div>
 
-          <button onClick={printResume} className="btn btn-secondary hidden md:flex">Print</button>
+          <button onClick={printResume} className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-[0.985] hidden md:flex">Print</button>
 
           <button 
             onClick={clearAll} 
-            className="btn btn-danger-ghost p-2 rounded-lg ml-1" 
+            className="inline-flex items-center p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 transition-all active:scale-[0.98] ml-1" 
             title="Clear all data"
           >
             <Trash2 className="w-4 h-4" />
@@ -1177,7 +1186,7 @@ export default function CVMaker() {
         <div className={`editor-pane ${activeTab === 'edit' ? '' : 'hidden lg:flex'}`}>
           <div className="editor-header flex items-center justify-between">
             <span className="font-bold text-slate-800 dark:text-slate-200">Builder Panels</span>
-            <button onClick={loadExample} className="text-[10px] btn btn-secondary py-1 px-2 md:hidden">Load Example</button>
+            <button onClick={loadExample} className="text-[10px] inline-flex items-center px-2.5 py-1 font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-[0.98] md:hidden">Load Example</button>
           </div>
 
           <div className="editor-scroll space-y-3">
@@ -1229,7 +1238,7 @@ export default function CVMaker() {
                     </div>
                   )}
                   <div>
-                    <label className="btn btn-secondary cursor-pointer py-1.5 px-3">
+                    <label className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all cursor-pointer active:scale-[0.985]">
                       <Upload className="w-3.5 h-3.5" />
                       {cv.personal.photo ? 'Change photo' : 'Upload photo'}
                       <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
@@ -1297,7 +1306,7 @@ export default function CVMaker() {
               `${cv.experience.length} ${cv.experience.length === 1 ? 'position' : 'positions'}`,
               <>
                 <div className="flex justify-end">
-                  <button onClick={addExperience} className="btn btn-secondary text-xs py-1.5 px-3 flex items-center gap-1">
+                  <button onClick={addExperience} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all active:scale-[0.98]">
                     <Plus className="w-3.5 h-3.5 text-indigo-500" /> Add Position
                   </button>
                 </div>
@@ -1357,7 +1366,7 @@ export default function CVMaker() {
                     <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Key achievements</span>
-                        <button onClick={() => addBullet(exp.id)} className="text-xs font-bold text-indigo-500 hover:text-indigo-600 flex items-center gap-0.5">
+                        <button onClick={() => addBullet(exp.id)} className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-all">
                           <Plus className="w-3 h-3" /> Add point
                         </button>
                       </div>
@@ -1392,7 +1401,7 @@ export default function CVMaker() {
               `${cv.education.length} ${cv.education.length === 1 ? 'degree' : 'degrees'}`,
               <>
                 <div className="flex justify-end">
-                  <button onClick={addEducation} className="btn btn-secondary text-xs py-1.5 px-3 flex items-center gap-1">
+                  <button onClick={addEducation} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all active:scale-[0.98]">
                     <Plus className="w-3.5 h-3.5 text-indigo-500" /> Add Education
                   </button>
                 </div>
@@ -1474,7 +1483,7 @@ export default function CVMaker() {
                     onKeyDown={handleSkillKeyDown}
                     placeholder="e.g. Figma, React, Python" 
                   />
-                  <button onClick={addSkill} className="btn btn-primary py-2">Add</button>
+                  <button onClick={addSkill} className="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white shadow-sm transition-all active:scale-[0.985]">Add</button>
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -1482,7 +1491,7 @@ export default function CVMaker() {
                   {cv.skills.map((skill, i) => (
                     <div key={i} className="chip">
                       <span>{skill}</span>
-                      <button onClick={() => removeSkill(skill)} className="p-0.5"><X className="w-3 h-3" /></button>
+                      <button onClick={() => removeSkill(skill)} className="p-0.5 text-slate-400 hover:text-rose-500 transition-colors"><X className="w-3 h-3" /></button>
                     </div>
                   ))}
                 </div>
@@ -1497,7 +1506,7 @@ export default function CVMaker() {
               `${cv.projects.length} ${cv.projects.length === 1 ? 'project' : 'projects'}`,
               <>
                 <div className="flex justify-end">
-                  <button onClick={addProject} className="btn btn-secondary text-xs py-1.5 px-3 flex items-center gap-1">
+                  <button onClick={addProject} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all active:scale-[0.98]">
                     <Plus className="w-3.5 h-3.5 text-indigo-500" /> Add Project
                   </button>
                 </div>
@@ -1548,12 +1557,12 @@ export default function CVMaker() {
             <div className="flex items-center gap-2">
               <LayoutGrid className="w-4 h-4 text-indigo-500" />
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{translations[language].layout}:</span>
-              <div className="flex flex-wrap bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700/60">
+              <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-xl border border-slate-200 dark:border-slate-700/60 shadow-inner">
                 {TEMPLATES.map((t) => (
                   <button
                     key={t.id}
                     onClick={() => changeTemplate(t.id)}
-                    className={`px-2.5 py-1 text-[10.5px] font-bold rounded-md transition-all ${template === t.id ? 'bg-indigo-500 text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-850 dark:hover:text-slate-200'}`}
+                    className={`px-3 py-1 text-[10px] font-semibold rounded-lg transition-all mx-0.5 ${template === t.id ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:bg-white/70 dark:hover:bg-slate-900/70 hover:text-slate-700 dark:hover:text-slate-200'}`}
                     title={t.desc}
                   >
                     {t.label}
