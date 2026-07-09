@@ -934,183 +934,174 @@ export default function CVMaker() {
     <div className="app-container flex flex-col">
       <Toaster position="top-center" richColors closeButton />
 
-      {/* Navbar */}
-      <nav className="navbar px-4 md:px-6 py-3 flex items-center justify-between">
+      {/* Modern Navbar */}
+      <nav className="navbar px-5 md:px-7 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[var(--accent)] flex items-center justify-center">
-              <FileText className="w-4.5 h-4.5 text-white" />
+          <div className="flex items-center gap-3">
+            <div className="logo">
+              <FileText className="w-5 h-5" />
             </div>
             <div>
-              <div className="font-semibold tracking-tighter text-xl">CV Maker</div>
-              <div className="text-[10px] text-[var(--text-muted)] -mt-1">Beautiful resumes in minutes</div>
+              <div className="font-semibold text-xl tracking-tight text-[var(--text-strong)]">CV Maker</div>
+              <div className="text-[10px] text-[var(--text-muted)] -mt-1">Professional resumes, instantly</div>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <button onClick={loadExample} className="btn btn-secondary hidden md:flex items-center gap-1.5 text-sm">
-            <Star className="w-4 h-4" /> Load Example
+          <button 
+            onClick={loadExample} 
+            className="btn btn-secondary hidden md:flex items-center gap-1.5 text-sm"
+          >
+            <Star className="w-4 h-4" /> Example
           </button>
-          
-          <label className="btn btn-secondary cursor-pointer flex items-center gap-1.5 text-sm">
+
+          <label className="btn btn-secondary cursor-pointer text-sm flex items-center gap-1.5">
             <Upload className="w-4 h-4" /> Import
             <input type="file" accept=".json" className="hidden" onChange={importJSON} />
           </label>
 
-          <button onClick={exportJSON} className="btn btn-secondary flex items-center gap-1.5 text-sm">
-            <Download className="w-4 h-4" /> Export JSON
+          <button onClick={exportJSON} className="btn btn-secondary text-sm flex items-center gap-1.5">
+            <Download className="w-4 h-4" /> JSON
           </button>
+
+          <div className="hidden sm:flex items-center gap-1.5 pl-2 border-l border-[var(--border)]">
+            <button onClick={exportPDF} className="btn btn-primary text-sm font-semibold flex items-center gap-1.5">
+              <Download className="w-4 h-4" /> PDF
+            </button>
+            <button onClick={exportDOCX} className="btn btn-secondary text-sm flex items-center gap-1.5">
+              <Download className="w-4 h-4" /> DOCX
+            </button>
+          </div>
+
+          <button onClick={printResume} className="btn btn-secondary hidden md:flex text-sm">Print</button>
 
           <button 
-            onClick={exportPDF} 
-            className="btn btn-primary flex items-center gap-2 text-sm font-semibold"
+            onClick={clearAll} 
+            className="btn btn-ghost text-red-500 hover:text-red-600 ml-1 p-1.5" 
+            title="Clear all data"
           >
-            <Download className="w-4 h-4" /> PDF
-          </button>
-
-          <button 
-            onClick={exportDOCX} 
-            className="btn btn-secondary flex items-center gap-1.5 text-sm"
-          >
-            <Download className="w-4 h-4" /> DOCX
-          </button>
-
-          <button onClick={printResume} className="btn btn-secondary hidden md:flex items-center gap-1.5 text-sm">
-            Print
-          </button>
-
-          <button onClick={clearAll} className="btn btn-ghost text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 ml-1">
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </nav>
 
-      {/* Toolbar / Templates */}
-      <div className="border-b bg-[var(--surface)] px-4 md:px-6 py-2.5 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <div className="flex items-center gap-2 text-xs uppercase tracking-wider font-medium text-[var(--text-muted)]">
-          Template
-        </div>
-        
-        <div className="flex gap-1.5">
-          {TEMPLATES.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => changeTemplate(t.id)}
-              className={`template-btn btn-secondary border ${template === t.id ? 'active' : ''}`}
-            >
-              {t.label}
-            </button>
-          ))}
+      {/* Template + Accent Toolbar */}
+      <div className="toolbar px-5 md:px-7 py-2.5 flex items-center gap-x-6 gap-y-2 flex-wrap border-b">
+        <div>
+          <div className="text-[10px] font-semibold tracking-widest text-[var(--text-muted)] mb-1">TEMPLATE</div>
+          <div className="flex gap-1 flex-wrap">
+            {TEMPLATES.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => changeTemplate(t.id)}
+                className={`template-btn text-sm ${template === t.id ? 'active' : ''}`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 ml-2">
-          <div className="text-xs uppercase tracking-wider font-medium text-[var(--text-muted)]">Accent</div>
-          <div className="flex gap-1.5">
+        <div>
+          <div className="text-[10px] font-semibold tracking-widest text-[var(--text-muted)] mb-1">ACCENT</div>
+          <div className="flex gap-1.5 items-center">
             {ACCENT_COLORS.map((color) => (
               <button
                 key={color}
                 onClick={() => changeAccent(color)}
-                className={`w-6 h-6 rounded-full border-2 transition-all ${accentColor === color ? 'border-white ring-2 ring-offset-2 ring-offset-[var(--surface)] ring-[var(--accent)] scale-110' : 'border-[var(--border)]'}`}
+                className={`w-6 h-6 rounded-full border-2 cursor-pointer transition-all hover:scale-110 ${accentColor === color ? 'ring-2 ring-offset-2 ring-offset-white ring-[var(--accent)] border-white' : 'border-[var(--border)]'}`}
                 style={{ backgroundColor: color }}
-                aria-label={`Accent ${color}`}
+                aria-label={`Use accent ${color}`}
               />
             ))}
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-2 text-xs text-[var(--text-muted)]">
-          Changes are saved automatically
+        <div className="ml-auto text-xs text-[var(--text-muted)] hidden md:block">
+          Auto-saved in your browser
         </div>
       </div>
 
-      {/* Main content: Split view */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-        {/* Editor */}
-        <div className={`w-full lg:w-[42%] xl:w-[38%] flex flex-col border-r border-[var(--border)] bg-[var(--surface)] ${activeTab === 'edit' ? 'flex' : 'hidden lg:flex'}`}>
-          <div className="px-5 pt-4 pb-2 flex items-center justify-between lg:hidden">
-            <div className="font-semibold">Editor</div>
-            <button onClick={() => setActiveTab('preview')} className="btn btn-secondary text-xs py-1">Show Preview</button>
+      {/* Mobile Tabs */}
+      <div className="mobile-tabs">
+        <button 
+          onClick={() => setActiveTab('edit')} 
+          className={`flex-1 py-2.5 text-sm font-medium ${activeTab === 'edit' ? 'border-b-2 border-[var(--accent)] text-[var(--text-strong)]' : 'text-[var(--text-muted)]'}`}
+        >
+          Edit
+        </button>
+        <button 
+          onClick={() => setActiveTab('preview')} 
+          className={`flex-1 py-2.5 text-sm font-medium ${activeTab === 'preview' ? 'border-b-2 border-[var(--accent)] text-[var(--text-strong)]' : 'text-[var(--text-muted)]'}`}
+        >
+          Preview
+        </button>
+      </div>
+
+      {/* Main Split View */}
+      <div className="main-content flex-1 overflow-hidden">
+        
+        {/* EDITOR PANE */}
+        <div className={`editor-pane ${activeTab === 'edit' ? '' : 'hidden lg:flex'}`}>
+          <div className="editor-header flex items-center justify-between">
+            <div>Edit your CV</div>
+            <button onClick={loadExample} className="text-xs btn btn-secondary py-1 px-2.5 hidden lg:flex">Load example</button>
           </div>
 
-          <div className="editor-scroll flex-1 overflow-auto px-5 pb-10 pt-2 space-y-6">
+          <div className="editor-scroll space-y-6">
             
-            {/* Personal Info */}
-            <div className="form-section">
-              <SectionHeader title="Personal Information" icon={<User className="w-3.5 h-3.5" />} />
+            {/* Personal */}
+            <div className="section">
+              <div className="section-title"><User className="w-3.5 h-3.5" /> Personal Information</div>
               
-              {/* Photo Upload */}
-              <div className="mb-4">
-                <label className="form-label">Profile Photo (optional)</label>
-                <div className="flex items-center gap-3">
-                  {cv.personal.photo ? (
-                    <div className="relative">
-                      <img 
-                        src={cv.personal.photo} 
-                        alt="Profile" 
-                        className="w-16 h-16 rounded-full object-cover border-2 border-[var(--border)]" 
-                      />
-                      <button 
-                        onClick={removePhoto} 
-                        className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 shadow"
-                        title="Remove photo"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="w-16 h-16 rounded-full bg-[var(--surface-2)] border border-dashed border-[var(--border)] flex items-center justify-center text-[var(--text-muted)]">
-                      <User className="w-6 h-6" />
-                    </div>
-                  )}
-                  
-                  <label className="btn btn-secondary cursor-pointer text-xs">
+              {/* Photo */}
+              <div className="photo-uploader">
+                {cv.personal.photo ? (
+                  <div className="relative">
+                    <img src={cv.personal.photo} alt="Profile" className="photo-preview" />
+                    <button onClick={removePhoto} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-[var(--surface-2)] border-2 border-dashed border-[var(--border)] flex items-center justify-center">
+                    <User className="w-6 h-6 text-[var(--text-muted)]" />
+                  </div>
+                )}
+                <div>
+                  <label className="btn btn-secondary cursor-pointer upload-btn">
                     <Upload className="w-3.5 h-3.5" />
-                    {cv.personal.photo ? 'Change Photo' : 'Upload Photo'}
-                    <input 
-                      type="file" 
-                      accept="image/*" 
-                      className="hidden" 
-                      onChange={handlePhotoUpload} 
-                    />
+                    {cv.personal.photo ? 'Change photo' : 'Upload photo'}
+                    <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
                   </label>
-                  <span className="text-[10px] text-[var(--text-muted)]">Max 2MB • JPG/PNG</span>
+                  <div className="text-[10px] text-[var(--text-muted)] mt-0.5">JPG or PNG • Max 2MB</div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="form-grid">
                 <div>
-                  <label className="form-label">Full Name</label>
-                  <input 
-                    className="input" 
-                    value={cv.personal.fullName} 
-                    onChange={e => updatePersonal('fullName', e.target.value)} 
-                    placeholder="Jane Cooper" 
-                  />
+                  <label className="form-label">Full name</label>
+                  <input className="input" value={cv.personal.fullName} onChange={e => updatePersonal('fullName', e.target.value)} placeholder="Jane Cooper" />
                 </div>
                 <div>
-                  <label className="form-label">Job Title</label>
-                  <input 
-                    className="input" 
-                    value={cv.personal.jobTitle} 
-                    onChange={e => updatePersonal('jobTitle', e.target.value)} 
-                    placeholder="Product Designer" 
-                  />
+                  <label className="form-label">Job title</label>
+                  <input className="input" value={cv.personal.jobTitle} onChange={e => updatePersonal('jobTitle', e.target.value)} placeholder="Senior Designer" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              <div className="form-grid mt-2.5">
                 <div>
                   <label className="form-label">Email</label>
-                  <input className="input" value={cv.personal.email} onChange={e => updatePersonal('email', e.target.value)} placeholder="you@domain.com" />
+                  <input className="input" value={cv.personal.email} onChange={e => updatePersonal('email', e.target.value)} placeholder="you@email.com" />
                 </div>
                 <div>
                   <label className="form-label">Phone</label>
-                  <input className="input" value={cv.personal.phone} onChange={e => updatePersonal('phone', e.target.value)} placeholder="+1 (555) 123-4567" />
+                  <input className="input" value={cv.personal.phone} onChange={e => updatePersonal('phone', e.target.value)} placeholder="+1 (555) 000-0000" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              <div className="form-grid mt-2.5">
                 <div>
                   <label className="form-label">Location</label>
                   <input className="input" value={cv.personal.location} onChange={e => updatePersonal('location', e.target.value)} placeholder="San Francisco, CA" />
@@ -1121,19 +1112,19 @@ export default function CVMaker() {
                 </div>
               </div>
 
-              <div className="mt-3">
+              <div className="mt-2.5">
                 <label className="form-label">LinkedIn</label>
-                <input className="input" value={cv.personal.linkedin} onChange={e => updatePersonal('linkedin', e.target.value)} placeholder="linkedin.com/in/yourprofile" />
+                <input className="input" value={cv.personal.linkedin} onChange={e => updatePersonal('linkedin', e.target.value)} placeholder="linkedin.com/in/yourname" />
               </div>
 
-              <div className="mt-3">
-                <label className="form-label">Professional Summary</label>
+              <div className="mt-2.5">
+                <label className="form-label">Professional summary</label>
                 <textarea 
                   className="textarea" 
                   value={cv.personal.summary} 
                   onChange={e => updatePersonal('summary', e.target.value)} 
-                  placeholder="Brief overview of your background and strengths..."
-                  rows={4}
+                  placeholder="Write a short professional summary..."
+                  rows={3}
                 />
               </div>
             </div>
