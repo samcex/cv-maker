@@ -414,7 +414,7 @@ export default function CVMaker() {
     }, 200);
   };
 
-  // PDF Export
+  // PDF Export - fixed for new layout
   const exportPDF = async () => {
     const resumeEl = document.getElementById('resume-preview');
     if (!resumeEl) {
@@ -427,19 +427,29 @@ export default function CVMaker() {
 
     toast.loading('Generating PDF...', { id: 'pdf' });
 
+    // Save original styles
+    const originalWidth = resumeEl.style.width;
+    const originalHeight = resumeEl.style.height;
+    const originalAspect = resumeEl.style.aspectRatio;
+    const originalShadow = resumeEl.style.boxShadow;
+
     try {
-      // Temporarily remove box-shadow for clean export
-      const originalShadow = resumeEl.style.boxShadow;
+      // Force consistent high-quality A4 size for capture (avoids aspect-ratio issues)
+      resumeEl.style.width = '794px';
+      resumeEl.style.height = '1123px';
+      resumeEl.style.aspectRatio = 'unset';
       resumeEl.style.boxShadow = 'none';
 
       const canvas = await html2canvas(resumeEl, {
-        scale: 2.2,
+        scale: 2.5,
         useCORS: true,
         backgroundColor: '#ffffff',
-        windowWidth: resumeEl.scrollWidth,
-        windowHeight: resumeEl.scrollHeight,
       });
 
+      // Restore styles immediately
+      resumeEl.style.width = originalWidth;
+      resumeEl.style.height = originalHeight;
+      resumeEl.style.aspectRatio = originalAspect;
       resumeEl.style.boxShadow = originalShadow;
 
       const imgData = canvas.toDataURL('image/png');
@@ -452,27 +462,20 @@ export default function CVMaker() {
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
 
-      // Fit image
       const imgWidth = pageWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      // Handle multi-page if needed (rare for CV)
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
       pdf.save(filename);
       toast.success('PDF downloaded!', { id: 'pdf' });
     } catch (error) {
+      // Always restore
+      resumeEl.style.width = originalWidth;
+      resumeEl.style.height = originalHeight;
+      resumeEl.style.aspectRatio = originalAspect;
+      resumeEl.style.boxShadow = originalShadow;
+
       console.error(error);
       toast.error('Failed to generate PDF', { id: 'pdf' });
     }
@@ -986,11 +989,11 @@ export default function CVMaker() {
         </div>
       </nav>
 
-      {/* Elegant Design Toolbar */}
-      <div className="toolbar px-5 md:px-7 py-2 flex items-center gap-x-5 gap-y-1.5 flex-wrap border-b bg-[var(--surface)]">
-        <div className="flex items-center gap-3">
+      {/* Elegant Design Toolbar - Centered */}
+      <div className="toolbar px-5 md:px-7 py-2 flex items-center justify-center border-b bg-[var(--surface)]">
+        <div className="flex items-center gap-6">
           <div>
-            <div className="text-[9px] font-semibold tracking-[0.5px] text-[var(--text-muted)] mb-0.5">TEMPLATE</div>
+            <div className="text-[9px] font-semibold tracking-[0.5px] text-[var(--text-muted)] mb-0.5 text-center">TEMPLATE</div>
             <div className="flex gap-px bg-[var(--surface-2)] rounded-md p-0.5 border border-[var(--border)]">
               {TEMPLATES.map((t) => (
                 <button
@@ -1006,7 +1009,7 @@ export default function CVMaker() {
           </div>
 
           <div>
-            <div className="text-[9px] font-semibold tracking-[0.5px] text-[var(--text-muted)] mb-0.5">COLOR</div>
+            <div className="text-[9px] font-semibold tracking-[0.5px] text-[var(--text-muted)] mb-0.5 text-center">COLOR</div>
             <div className="flex gap-1 items-center">
               {ACCENT_COLORS.map((color) => (
                 <button
@@ -1019,10 +1022,6 @@ export default function CVMaker() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="ml-auto hidden md:block text-[10px] text-[var(--text-muted)] font-medium">
-          Changes saved automatically
         </div>
       </div>
 
@@ -1333,9 +1332,9 @@ export default function CVMaker() {
         {/* PREVIEW PANE - Spacious & Elegant */}
         <div className={`preview-pane ${activeTab === 'preview' ? '' : 'hidden lg:flex'}`}>
           <div className="preview-container w-full max-w-[820px]">
-            <div className="mb-2 flex items-center justify-between px-1 text-xs font-medium text-[var(--text-muted)] tracking-wider">
+            <div className="mb-2 flex items-center justify-center relative px-1 text-xs font-medium text-[var(--text-muted)] tracking-wider">
               <span>LIVE PREVIEW</span>
-              <div className="hidden md:flex gap-1.5">
+              <div className="hidden md:flex gap-1.5 absolute right-1">
                 <button onClick={exportPDF} className="btn btn-primary text-xs px-3 py-0.5">PDF</button>
                 <button onClick={exportDOCX} className="btn btn-secondary text-xs px-3 py-0.5">DOCX</button>
               </div>
