@@ -5,66 +5,63 @@
 @tailwind utilities;
 
 :root {
-  --font-app: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-resume: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-app: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-resume: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   
-  /* Premium Light Theme */
-  --bg-app: #f8fafc;
-  --surface-app: #ffffff;
-  --surface-app-hover: #f1f5f9;
-  --surface-app-2: #f1f5f9;
-  --surface-app-3: #e2e8f0;
-  --border-app: #e2e8f0;
-  --border-app-strong: #cbd5e1;
-  --text-app: #334155;
-  --text-app-muted: #64748b;
-  --text-app-strong: #0f172a;
+  /* Clean Modern Elegant Theme */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --text-strong: #111827;
   
-  --accent-app: #6366f1; /* indigo */
-  --accent-app-light: rgba(99, 102, 241, 0.08);
-  --accent-app-hover: #4f46e5;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-light: #e0e7ff;
   
-  --success: #10b981;
-  --danger: #f43f5e;
+  --success: #059669;
+  --danger: #dc2626;
   
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
-  --shadow-xl: 0 24px 48px -8px rgba(15, 23, 42, 0.08), 0 8px 24px -4px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   
-  /* Resume preview paper */
+  /* Resume paper */
   --resume-bg: #ffffff;
-  --resume-text: #1e2937;
-  --resume-muted: #475569;
-  --resume-border: #e2e8f0;
-  --resume-accent: #334155;
-  --resume-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.12), 0 10px 20px -8px rgba(0, 0, 0, 0.06);
+  --resume-text: #111827;
+  --resume-muted: #4b5563;
+  --resume-border: #e5e7eb;
+  --resume-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 .dark {
-  /* Premium Dark Theme */
-  --bg-app: #080b11;
-  --surface-app: #0f131c;
-  --surface-app-hover: #151b27;
-  --surface-app-2: #161c28;
-  --surface-app-3: #222b3e;
-  --border-app: #1e2535;
-  --border-app-strong: #2a3449;
-  --text-app: #94a3b8;
-  --text-app-muted: #64748b;
-  --text-app-strong: #f8fafc;
+  --bg: #111827;
+  --surface: #1f2937;
+  --surface-2: #374151;
+  --border: #4b5563;
+  --border-strong: #6b7280;
+  --text: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-strong: #f9fafb;
   
-  --accent-app: #818cf8; /* brighter indigo */
-  --accent-app-light: rgba(129, 140, 248, 0.1);
-  --accent-app-hover: #6366f1;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-light: #1e3a8a;
   
-  --success: #34d399;
-  --danger: #fb7185;
+  --success: #10b981;
+  --danger: #ef4444;
   
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 2px 6px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.5), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 24px 48px -8px rgba(0, 0, 0, 0.6), 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  
+  --resume-bg: #1f2937;
+  --resume-text: #f9fafb;
+  --resume-muted: #9ca3af;
+  --resume-border: #4b5563;
 }
 
 body {
@@ -105,71 +102,62 @@ body {
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
 }
 
-/* Modern Buttons - clean, elevated, professional */
+/* Modern UI Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid transparent;
   white-space: nowrap;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.06);
 }
 
 .btn:hover {
   transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .btn:active {
-  transform: translateY(0) scale(0.985);
-}
-
-.btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  transform: translateY(0);
 }
 
 .btn-primary {
-  background: var(--accent-app);
+  background: var(--accent);
   color: white;
-  box-shadow: 0 1px 3px 0 rgb(99 102 241 / 0.3), 0 1px 2px 0 rgb(0 0 0 / 0.06);
 }
 
 .btn-primary:hover {
-  background: var(--accent-app-hover);
-  box-shadow: 0 4px 6px -1px rgb(99 102 241 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  background: var(--accent-hover);
 }
 
 .btn-secondary {
-  background: var(--surface-app-2);
-  color: var(--text-app-strong);
-  border: 1px solid var(--border-app);
-  box-shadow: none;
+  background: var(--surface);
+  color: var(--text-strong);
+  border: 1px solid var(--border);
 }
 
 .btn-secondary:hover {
-  background: var(--surface-app-hover);
-  border-color: var(--border-app-strong);
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  background: var(--surface-2);
+  border-color: var(--border-strong);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--text-app-muted);
+  color: var(--text-muted);
   border: none;
   box-shadow: none;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding: 0.5rem 0.75rem;
 }
 
 .btn-ghost:hover {
-  color: var(--text-app-strong);
-  background: var(--surface-app-2);
+  color: var(--text-strong);
+  background: var(--surface-2);
 }
 
 .btn-danger-ghost {
@@ -177,6 +165,11 @@ body {
   color: var(--danger);
   border: none;
   box-shadow: none;
+}
+
+.btn-danger-ghost:hover {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .btn-danger-ghost:hover {
@@ -328,19 +321,15 @@ body {
 .preview-scroll-area {
   flex: 1;
   overflow: auto;
-  padding: 2rem;
-  background-color: #0f172a; /* Slate 900 background to pop A4 document */
+  padding: 1.5rem 2rem;
+  background: #f1f5f9;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-image: 
-    radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
 }
 
 .dark .preview-scroll-area {
-  background-color: #020617; /* Slate 950 */
-  background-image: 
-    radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%);
+  background: #0f172a;
 }
 
 /* ========================================================
@@ -348,22 +337,25 @@ body {
    ======================================================== */
 
 .resume-preview-wrapper {
-  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.6), 0 18px 36px -18px rgba(0,0,0,0.3);
-  border-radius: 4px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 10px 10px -6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--resume-bg);
+  overflow: hidden;
 }
 
 .resume-paper {
   background: var(--resume-bg);
   color: var(--resume-text);
-  width: 794px;
-  height: 1123px;
-  padding: 16mm 16mm;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 210 / 297;
+  padding: 18mm 16mm;
   box-sizing: border-box;
-  font-size: 10pt;
+  font-size: 10.2pt;
   line-height: 1.5;
   font-family: var(--font-resume);
-  position: relative;
-  overflow: hidden;
+  margin: 0 auto;
 }
 
 /* ========================================================
@@ -372,38 +364,40 @@ body {
 
 /* General Elements */
 .resume-name {
-  font-size: 24pt;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
   color: #0f172a;
+  margin-bottom: 2px;
 }
 
 .resume-title {
-  font-size: 11.5pt;
-  font-weight: 600;
+  font-size: 10.8pt;
+  font-weight: 500;
+  color: var(--accent);
   letter-spacing: -0.01em;
-  margin-top: 3px;
 }
 
 .resume-contact {
-  font-size: 8.5pt;
+  font-size: 8.2pt;
   color: #475569;
   display: flex;
   flex-wrap: wrap;
-  gap: 3px 14px;
-  margin-top: 8px;
-  line-height: 1.4;
+  gap: 2px 12px;
+  margin-top: 6px;
+  line-height: 1.35;
 }
 
 .resume-section-title {
-  font-size: 9.5pt;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 9pt;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-top: 16px;
-  margin-bottom: 8px;
-  padding-bottom: 4px;
+  color: var(--accent);
+  margin-top: 14px;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
   border-bottom: 1px solid #e2e8f0;
 }
 
