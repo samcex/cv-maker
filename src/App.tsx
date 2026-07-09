@@ -986,55 +986,57 @@ export default function CVMaker() {
         </div>
       </nav>
 
-      {/* Template + Accent Toolbar */}
-      <div className="toolbar px-5 md:px-7 py-2.5 flex items-center gap-x-6 gap-y-2 flex-wrap border-b">
-        <div>
-          <div className="text-[10px] font-semibold tracking-widest text-[var(--text-muted)] mb-1">DESIGN</div>
-          <div className="flex gap-1 flex-wrap">
-            {TEMPLATES.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => changeTemplate(t.id)}
-                className={`template-btn text-sm ${template === t.id ? 'active' : ''}`}
-                title={t.desc}
-              >
-                {t.label}
-              </button>
-            ))}
+      {/* Elegant Design Toolbar */}
+      <div className="toolbar px-5 md:px-7 py-2 flex items-center gap-x-5 gap-y-1.5 flex-wrap border-b bg-[var(--surface)]">
+        <div className="flex items-center gap-3">
+          <div>
+            <div className="text-[9px] font-semibold tracking-[0.5px] text-[var(--text-muted)] mb-0.5">TEMPLATE</div>
+            <div className="flex gap-px bg-[var(--surface-2)] rounded-md p-0.5 border border-[var(--border)]">
+              {TEMPLATES.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => changeTemplate(t.id)}
+                  className={`template-btn px-2.5 py-0.5 text-xs ${template === t.id ? 'active' : ''}`}
+                  title={t.desc}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="text-[9px] font-semibold tracking-[0.5px] text-[var(--text-muted)] mb-0.5">COLOR</div>
+            <div className="flex gap-1 items-center">
+              {ACCENT_COLORS.map((color) => (
+                <button
+                  key={color}
+                  onClick={() => changeAccent(color)}
+                  className={`w-5 h-5 rounded border transition-all ${accentColor === color ? 'ring-1 ring-offset-1 ring-offset-white ring-[var(--accent)] scale-110' : 'border-[var(--border)] hover:scale-105'}`}
+                  style={{ backgroundColor: color }}
+                  aria-label={`Accent ${color}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
-        <div>
-          <div className="text-[10px] font-semibold tracking-widest text-[var(--text-muted)] mb-1">ACCENT</div>
-          <div className="flex gap-1.5 items-center">
-            {ACCENT_COLORS.map((color) => (
-              <button
-                key={color}
-                onClick={() => changeAccent(color)}
-                className={`w-6 h-6 rounded-full border-2 cursor-pointer transition-all hover:scale-110 ${accentColor === color ? 'ring-2 ring-offset-2 ring-offset-white ring-[var(--accent)] border-white' : 'border-[var(--border)]'}`}
-                style={{ backgroundColor: color }}
-                aria-label={`Use accent ${color}`}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="ml-auto text-xs text-[var(--text-muted)] hidden md:block">
-          Auto-saved in your browser
+        <div className="ml-auto hidden md:block text-[10px] text-[var(--text-muted)] font-medium">
+          Changes saved automatically
         </div>
       </div>
 
-      {/* Mobile Tabs */}
-      <div className="mobile-tabs">
+      {/* Mobile Tabs - Elegant */}
+      <div className="mobile-tabs text-sm">
         <button 
           onClick={() => setActiveTab('edit')} 
-          className={`flex-1 py-2.5 text-sm font-medium ${activeTab === 'edit' ? 'border-b-2 border-[var(--accent)] text-[var(--text-strong)]' : 'text-[var(--text-muted)]'}`}
+          className={`flex-1 py-3 font-medium transition-colors ${activeTab === 'edit' ? 'border-b-2 border-[var(--accent)] text-[var(--text-strong)]' : 'text-[var(--text-muted)]'}`}
         >
           Edit
         </button>
         <button 
           onClick={() => setActiveTab('preview')} 
-          className={`flex-1 py-2.5 text-sm font-medium ${activeTab === 'preview' ? 'border-b-2 border-[var(--accent)] text-[var(--text-strong)]' : 'text-[var(--text-muted)]'}`}
+          className={`flex-1 py-3 font-medium transition-colors ${activeTab === 'preview' ? 'border-b-2 border-[var(--accent)] text-[var(--text-strong)]' : 'text-[var(--text-muted)]'}`}
         >
           Preview
         </button>
