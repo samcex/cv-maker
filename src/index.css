@@ -360,10 +360,11 @@ body {
 .resume-paper {
   background: var(--resume-bg);
   color: var(--resume-text);
-  width: 210mm;
-  min-height: 297mm;
-  padding: 20mm 18mm;
-  font-size: 10.2pt;
+  width: 100%;
+  max-width: 780px; /* comfortable on-screen size, not tiny */
+  aspect-ratio: 210 / 297;
+  padding: 18mm 16mm;
+  font-size: 10.5pt;
   line-height: 1.55;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
@@ -374,10 +375,8 @@ body {
 
 @media (max-width: 900px) {
   .resume-paper {
-    width: 100%;
-    max-width: 210mm;
-    min-height: auto;
-    padding: 14mm 12mm;
+    max-width: 100%;
+    padding: 12mm 10mm;
     font-size: 9.8pt;
   }
 }

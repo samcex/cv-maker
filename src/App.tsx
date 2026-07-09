@@ -1042,7 +1042,7 @@ export default function CVMaker() {
         </button>
       </div>
 
-      {/* Main Split View */}
+      {/* Main Split View - Spacious Elegant Layout */}
       <div className="main-content flex-1 overflow-hidden">
         
         {/* EDITOR PANE */}
@@ -1330,41 +1330,24 @@ export default function CVMaker() {
           </div>
         </div>
 
-        {/* Preview */}
-        <div className={`w-full lg:w-[58%] xl:w-[62%] flex flex-col bg-[#e5e7eb] dark:bg-[#0f172a] ${activeTab === 'preview' ? 'flex' : 'hidden lg:flex'}`}>
-          <div className="px-5 pt-3 pb-2 flex items-center justify-between bg-[#e5e7eb] dark:bg-[#0f172a] border-b border-[var(--border)] lg:border-none lg:bg-transparent">
-            <div className="font-semibold text-sm flex items-center gap-2">
-              Live Preview
+        {/* PREVIEW PANE - Spacious & Elegant */}
+        <div className={`preview-pane ${activeTab === 'preview' ? '' : 'hidden lg:flex'}`}>
+          <div className="preview-container w-full max-w-[820px]">
+            <div className="mb-2 flex items-center justify-between px-1 text-xs font-medium text-[var(--text-muted)] tracking-wider">
+              <span>LIVE PREVIEW</span>
+              <div className="hidden md:flex gap-1.5">
+                <button onClick={exportPDF} className="btn btn-primary text-xs px-3 py-0.5">PDF</button>
+                <button onClick={exportDOCX} className="btn btn-secondary text-xs px-3 py-0.5">DOCX</button>
+              </div>
             </div>
-            <div className="flex items-center gap-2 lg:hidden">
-              <button onClick={() => setActiveTab('edit')} className="btn btn-secondary text-xs py-1">Back to Editor</button>
-            </div>
-            <button onClick={exportPDF} className="btn btn-primary text-sm hidden lg:flex">
-              <Download className="w-4 h-4 mr-1.5" /> PDF
-            </button>
-            <button onClick={exportDOCX} className="btn btn-secondary text-sm hidden lg:flex">
-              <Download className="w-4 h-4 mr-1.5" /> DOCX
-            </button>
-            <button onClick={printResume} className="btn btn-secondary text-sm hidden lg:flex">
-              Print
-            </button>
-          </div>
-
-          <div className="preview-scroll flex-1 overflow-auto preview-container">
-            <div className="scale-[0.92] origin-top lg:scale-100 transition-transform">
+            <div className="resume-frame">
               {renderPreview()}
             </div>
-          </div>
-
-          <div className="p-3 text-center text-[10px] text-[var(--text-muted)] lg:hidden">
-            Tip: Use the editor to make changes. PDF export works best on desktop.
+            <div className="mt-2 text-center text-[9px] text-[var(--text-muted)] hidden md:block">
+              A4 format • Professional &amp; ATS-ready
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Footer hint */}
-      <div className="hidden lg:block text-center py-1.5 text-[10px] text-[var(--text-muted)] border-t bg-[var(--surface)]">
-        Pro tip: Your CV is saved automatically in your browser. Use <strong>Download PDF</strong> for a print-ready file.
       </div>
     </div>
   );
