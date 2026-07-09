@@ -57,22 +57,21 @@ Open http://localhost:5173
 - Use the "Present" checkbox for current roles
 - Everything auto-saves
 
-## Deploy to Vercel
+## Links
 
-### Recommended: Git + Vercel (one-click previews + production)
+- **Live Demo**: https://cv-maker-eta-lake.vercel.app
+- **GitHub**: https://github.com/samcex/cv-maker
+- **Vercel Project**: https://vercel.com/samirs-projects-9699f0cc/cv-maker
 
-1. Create a new GitHub repository.
-2. Push this folder:
-   ```bash
-   cd cv-maker
-   git init
-   git add .
-   git commit -m "Initial CV Maker"
-   git remote add origin https://github.com/YOUR_USERNAME/cv-maker.git
-   git push -u origin main
-   ```
-3. Go to [vercel.com](https://vercel.com) → **Add New Project** → Import the GitHub repo.
-4. Vercel auto-detects Vite. Hit Deploy.
+## Deploy to Vercel (via Git)
+
+This repo is already set up for Vercel.
+
+1. Go to [vercel.com](https://vercel.com) → **Add New Project**
+2. Import the GitHub repo `samcex/cv-maker`
+3. Vercel will auto-detect Vite and deploy.
+
+Every push to `main` will trigger a new production deployment. Pull requests will get preview deployments.
 
 You'll get:
 - Instant production URL (e.g. `cv-maker.vercel.app`)
